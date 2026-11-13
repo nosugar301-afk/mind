@@ -11,7 +11,15 @@
   const defaults={voice:true,rate:.85,inhale:3,exhale:4,rest:1,cycles:3,record:false,display:'normal',calmAllowed:null,aacAllowed:null,scenarioAllowed:null,customAAC:[]};
   let profiles=storage.get(KEY+'profiles',[{id:'friend1',name:'친구 1',settings:{...defaults}}]);
   if(!Array.isArray(profiles)||!profiles.length) profiles=[{id:'friend1',name:'친구 1',settings:{...defaults}}];
-  let active=storage.get(KEY+'active',profiles[0].id);
+  const validProfile=id=>profiles.some(p=>p.id===id);
+  let device=storage.get(KEY+'deviceMode',{mode:'shared',student:null});
+  if(!device||!['shared','personal'].includes(device.mode))device={mode:'shared',student:null};
+  if(device.mode==='personal'&&!validProfile(device.student)){device={mode:'shared',student:null};storage.set(KEY+'deviceMode',device);}
+  let sessionStudent=storage.get(KEY+'sessionStudent',null,true);
+  let active=device.mode==='personal'?device.student:validProfile(sessionStudent)?sessionStudent:storage.get(KEY+'active',profiles[0].id);
+  if(!validProfile(active))active=profiles[0].id;
+  const avatarChoices=['p1-0.png','p1-1.png','p1-2.png','p1-3.png','p1-4.png'];
+  const avatarOf=p=>avatarChoices.includes(p.avatar)?p.avatar:avatarChoices[Math.max(0,profiles.indexOf(p))%avatarChoices.length];
   const current=()=>profiles.find(p=>p.id===active)||profiles[0];
   const settings=()=>({...defaults,...current().settings});
   let records=storage.get(KEY+'records',[]), helps=storage.get(KEY+'helps',[]);
@@ -49,19 +57,78 @@
   function finish(){ensureRun();if(!run.finished){run.finished=true;run.ended=new Date().toISOString();saveRun();if(settings().record&&!records.some(r=>r.id===run.id)){records.unshift({...run,day:localDay()});records=records.slice(0,1000);if(!storage.set(KEY+'records',records))notice('기기 저장 공간을 확인해 주세요. 기록을 저장하지 못했어요.')}}go('complete.html')}
   function dateText(s){try{return new Date(s).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}catch{return ''}}
   const emotionLabels={angry:'화가 났어요',sad:'슬퍼요',anxious:'불안해요',practice:'연습',happy:'기뻐요'};
+  function chooseStudent(id){
+    if(!validProfile(id))return;
+    active=id;sessionStudent=id;
+    if(!storage.set(KEY+'sessionStudent',id,true)){notice('학생을 선택할 수 없어요. 브라우저 저장소를 확인해 주세요.');return;}
+    storage.set(KEY+'active',id);newRun();go('index.html');
+  }
+  function endStudent(){
+    stopVoice();try{sessionStorage.removeItem(KEY+'sessionStudent');sessionStorage.removeItem(KEY+'run');}catch{}
+    location.replace('index.html');
+  }
+  function installStudentStyles(){
+    const style=document.createElement('style');style.textContent=`
+      .mg-student-picker{position:fixed;inset:0;z-index:9999;background:#fff8f3;overflow:auto;padding:clamp(20px,4vw,56px);display:flex;flex-direction:column;align-items:center;gap:20px;color:#201b14}
+      .mg-student-picker h1{font-size:clamp(26px,4vw,44px);color:#006c47;font-weight:800;text-align:center;margin:0}
+      .mg-student-picker p{font-size:clamp(18px,2.4vw,24px);text-align:center;margin:0}
+      .mg-student-grid{width:min(100%,920px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:18px}
+      .mg-student-card{border:2px solid transparent;border-radius:24px;background:#e3f4e9;color:#134d37;padding:20px;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:0 3px 10px #0001}
+      .mg-student-card:nth-child(4n+2){background:#e1efff;color:#164d77}.mg-student-card:nth-child(4n+3){background:#f8e6ce;color:#6e4723}.mg-student-card:nth-child(4n+4){background:#ece3fb;color:#523b82}
+      .mg-student-card:focus-visible,.mg-student-card:hover{border-color:#006c47;outline:2px solid #006c47;outline-offset:2px}
+      .mg-student-card img{width:100px;height:100px;object-fit:contain;background:#fff8f3;border-radius:50%;padding:5px}
+      .mg-student-card strong{font-size:25px;overflow-wrap:anywhere}
+      .mg-student-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#e3f4e9;color:#134d37;border-radius:16px;padding:10px 16px;margin:0 0 8px;font-weight:700}
+      .mg-student-bar .app-btn{min-height:44px}
+      .mg-device-panel{margin:16px 0;padding:16px;background:#f4f0e9;border-radius:16px}.mg-device-panel label{display:block;margin:10px 0}.mg-device-panel select,.mg-device-panel input{width:100%;margin-top:4px}.mg-device-panel h3{font-size:20px;font-weight:700;margin:0 0 8px}.mg-device-panel p{margin:8px 0}
+      @media(max-width:600px){.mg-student-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.mg-student-card{min-height:140px;padding:12px}.mg-student-card img{width:72px;height:72px}.mg-student-card strong{font-size:19px}}
+    `;document.head.append(style);
+  }
+  function studentGate(){
+    if(page==='teacher'||device.mode==='personal'||validProfile(sessionStudent))return false;
+    if(page!=='index'){location.replace('index.html');return true;}
+    // No activity may be attributed to the fallback profile before a selection.
+    const view=document.createElement('section');view.className='mg-student-picker';view.setAttribute('aria-label','학생 선택');
+    view.innerHTML='<h1>나의 마음 지킴이</h1><p>누가 사용할까요? 내 그림을 눌러요.</p><div class="mg-student-grid">'+profiles.map(p=>'<button type="button" class="mg-student-card" data-student-id="'+esc(p.id)+'"><img src="assets/'+avatarOf(p)+'" alt=""/><strong>'+esc(p.name)+'</strong></button>').join('')+'</div><button type="button" class="app-btn primary" id="mgUnassignedHelp">선생님, 도와주세요!</button><a class="app-btn muted" href="teacher.html">선생님 설정</a><p id="mgPickerHelp" role="status" hidden>선생님께 이 화면을 보여 주세요. 이 태블릿에서만 목소리가 나와요.</p>';
+    [...document.body.children].forEach(el=>{if(!['SCRIPT','STYLE'].includes(el.tagName))el.inert=true;});
+    document.body.append(view);
+    view.querySelectorAll('[data-student-id]').forEach(b=>b.onclick=()=>chooseStudent(b.dataset.studentId));
+    byId('mgUnassignedHelp').onclick=()=>{byId('mgPickerHelp').hidden=false;speak('선생님, 도와주세요!',true);};
+    return true;
+  }
+  function studentBar(){
+    if(page!=='index')return;
+    const wrap=$('main>div>div')||$('main>div')||$('main');if(!wrap)return;
+    const bar=document.createElement('div');bar.className='mg-student-bar';
+    bar.innerHTML='<span>현재 학생: '+esc(current().name)+'</span>'+(device.mode==='shared'?'<button type="button" class="app-btn muted compact" id="mgSwitchStudent">학생 바꾸기</button>':'<span>나의 전용 태블릿</span>');
+    wrap.prepend(bar);byId('mgSwitchStudent')?.addEventListener('click',endStudent);
+  }
+  function renderDevicePanel(selected){
+    let panel=byId('mgDevicePanel');
+    if(!panel){panel=document.createElement('div');panel.id='mgDevicePanel';panel.className='mg-device-panel';byId('profiles').append(panel);}
+    const p=profiles.find(x=>x.id===selected)||current();
+    panel.innerHTML='<h3>이 태블릿 사용 방식</h3><p>공용은 학생이 직접 선택하고, 전용은 지정된 학생으로 바로 시작합니다.</p><label>사용 방식<select id="mgMode"><option value="shared">공용 태블릿</option><option value="personal">학생 전용 태블릿</option></select></label><label id="mgAssignedLabel">전용 학생<select id="mgAssigned">'+profiles.map(x=>'<option value="'+esc(x.id)+'">'+esc(x.name)+'</option>').join('')+'</select></label><button type="button" class="app-btn primary" id="mgSaveMode">기기 설정 저장</button><p id="mgModeMessage" role="status"></p><h3 style="margin-top:20px">학생 별칭과 그림</h3><label>수정할 학생<select id="mgEditStudent">'+profiles.map(x=>'<option value="'+esc(x.id)+'">'+esc(x.name)+'</option>').join('')+'</select></label><label>별칭<input id="mgEditName" maxlength="20"/></label><label>그림<select id="mgEditAvatar">'+avatarChoices.map((x,i)=>'<option value="'+x+'">고양이 '+(i+1)+'</option>').join('')+'</select></label><img id="mgAvatarPreview" alt="선택한 고양이 그림" style="width:76px;height:76px;object-fit:contain;border-radius:16px;background:white"/><button type="button" class="app-btn muted" id="mgSaveProfile">별칭·그림 저장</button><p id="mgProfileMessage" role="status"></p>';
+    const mode=byId('mgMode'),assigned=byId('mgAssigned'),edit=byId('mgEditStudent');
+    mode.value=device.mode;assigned.value=validProfile(device.student)?device.student:active;
+    const modeFields=()=>{byId('mgAssignedLabel').hidden=mode.value!=='personal';};mode.onchange=modeFields;modeFields();
+    byId('mgSaveMode').onclick=()=>{const next={mode:mode.value,student:mode.value==='personal'?assigned.value:null};if(next.mode==='personal'&&!validProfile(next.student))return;if(!storage.set(KEY+'deviceMode',next)){byId('mgModeMessage').textContent='기기 설정을 저장하지 못했습니다.';return;}device=next;try{sessionStorage.removeItem(KEY+'sessionStudent');sessionStorage.removeItem(KEY+'run');}catch{}sessionStudent=null;if(device.mode==='personal'){active=device.student;storage.set(KEY+'active',active);}run=fresh();byId('mgModeMessage').textContent='저장했습니다. 학생 화면으로 돌아가면 적용됩니다.';};
+    edit.value=p.id;const fields=()=>{const x=profiles.find(y=>y.id===edit.value)||current();byId('mgEditName').value=x.name;byId('mgEditAvatar').value=avatarOf(x);byId('mgAvatarPreview').src='assets/'+avatarOf(x);};edit.onchange=fields;fields();
+    byId('mgEditAvatar').onchange=()=>{byId('mgAvatarPreview').src='assets/'+byId('mgEditAvatar').value;};
+    byId('mgSaveProfile').onclick=()=>{const x=profiles.find(y=>y.id===edit.value),name=byId('mgEditName').value.trim();if(!x||!name||profiles.some(y=>y.id!==x.id&&y.name===name)){byId('mgProfileMessage').textContent='중복되지 않는 별칭을 입력해 주세요.';return;}const old={name:x.name,avatar:x.avatar};x.name=name;x.avatar=byId('mgEditAvatar').value;if(!storage.set(KEY+'profiles',profiles)){Object.assign(x,old);byId('mgProfileMessage').textContent='저장하지 못했습니다.';return;}byId('profileCards').querySelector('[data-activate="'+CSS.escape(x.id)+'"]')?.closest('.profile-card')?.querySelector('strong')?.replaceChildren(name);[byId('settingsProfile'),assigned,edit].forEach(sel=>{const opt=Array.from(sel.options).find(o=>o.value===x.id);if(opt)opt.textContent=name;});byId('mgProfileMessage').textContent='별칭과 그림을 저장했습니다.';};
+  }
   function initHeader(){
     if(page==='teacher')return;
     const hdr=$('body>header'); if(!hdr)return;
     // Keep the Stitch header and its buttons; expose a compact AAC shortcut using existing help menu.
     const nav=$('body>header nav'); if(nav){nav.setAttribute('aria-label','마음 활동 메뉴');const target=['index','emotion','thermometer'].includes(page)?'emotion.html':['stop','breathing','check','practice'].includes(page)?'breathing.html':['calm','activity','aac'].includes(page)?'calm.html':'records.html';$$('a',nav).forEach(a=>{const yes=a.getAttribute('href')===target;a.classList.toggle('nav-current',yes);if(yes)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')})}
-    const title=$('header .font-headline-md');if(title)title.title='현재 학생: '+current().name;
+    const title=$('header .font-headline-md');if(title)title.title='현재 학생: '+current().name;studentBar();
     $$('body>header button').forEach(b=>{if(!b.dataset.action){b.dataset.action=b.textContent.includes('선생님')?'help':'guide'}});
     // Student mode can shorten descriptive secondary text without altering the original cards.
     if(settings().display==='simple')document.body.classList.add('simple-mode');if(page==='aac'&&settings().display==='sentence')document.body.classList.add('sentence-mode');
   }
   // Shared actions are handled in capture phase to avoid triggering old mock alert handlers.
   document.addEventListener('click',e=>{
-    const el=e.target.closest('button,a');if(!el)return;
+    const el=e.target.closest('button,a');if(!el||el.closest('.mg-student-picker'))return;
     const action=el.dataset.action;
     if(action==='help'||action==='speak-help'){e.preventDefault();e.stopImmediatePropagation();showHelp(action==='help');return}
     if(action==='guide'){e.preventDefault();e.stopImmediatePropagation();speak(guide[page]||'천천히 마음을 돌봐요.',true);return}
@@ -70,6 +137,7 @@
     if(action==='share-stamp'){e.preventDefault();e.stopImmediatePropagation();speak('선생님, 저 오늘 내 마음을 돌보려고 노력했어요!',true);notice('선생님께 이 화면을 보여 주세요.');return}
     if(action==='skip-breath'){e.preventDefault();e.stopImmediatePropagation();addActivity('심호흡 건너뛰기');run.after='';saveRun();go('check.html');return}
     if(action==='teacher-exit'){storage.set(KEY+'teacherUnlocked',false,true);return}
+    if(page==='complete'&&device.mode==='shared'&&(el.getAttribute('href')==='index.html'||el.dataset.go==='index.html')){e.preventDefault();e.stopImmediatePropagation();endStudent();return;}
     if(el.dataset.go){e.preventDefault();e.stopImmediatePropagation();go(el.dataset.go);return}
     if(el.dataset.emotionHome){e.preventDefault();const key=el.dataset.emotionHome;newRun(emotionLabels[key]||'',key==='practice');go(key==='angry'?'stop.html':key==='sad'?'calm.html':key==='anxious'?'breathing.html':'practice.html');return}
     if(page==='index'&&el.matches('a[href="emotion.html"]')){newRun();}
@@ -80,6 +148,7 @@
     if(page==='check'&&el.id==='btn-next-step'){e.preventDefault();if(!run.after){notice('지금 내 마음을 그림으로 골라요.');return}if(run.after==='아직 많이 화나요')go('breathing.html');else if(run.after==='조금 나아졌어요')go('calm.html');else finish();return}
     if(page==='calm'&&el.dataset.activity){ensureRun();run.selectedActivity=el.dataset.activity;saveRun()}
     if(page==='calm'&&el.id==='startActionBtn'){e.preventDefault();ensureRun();const visible=$$('[data-activity]').filter(b=>!b.hidden);if(!visible.length){notice('선생님께 활동을 설정해 달라고 말해요.');return}run.selectedActivity=visible.some(b=>b.dataset.activity===run.selectedActivity)?run.selectedActivity:visible[0].dataset.activity;saveRun();go('activity.html');return}
+    if(page==='complete'&&device.mode==='shared'&&(el.getAttribute('href')==='index.html'||el.dataset.go==='index.html')){e.preventDefault();e.stopImmediatePropagation();endStudent();return;}
     if(el.matches('a[href$=".html"]')&&!e.defaultPrevented){stopVoice();saveRun()}
   },true);
   function initEmotion(){
@@ -166,13 +235,13 @@
   function initTeacher(){let selected=active;let unlocked=storage.get(KEY+'teacherUnlocked',false,true);const lock=byId('teacherLock'),content=byId('teacherContent');
     const fields={voiceEnabled:['voice',v=>v==='1'],voiceRate:['rate',Number],inhaleSeconds:['inhale',Number],exhaleSeconds:['exhale',Number],restMinutes:['rest',Number],recordEnabled:['record',v=>v==='1'],displayMode:['display',String],breathCycles:['cycles',Number]};
     function show(){lock.hidden=unlocked;content.hidden=!unlocked;if(unlocked)render();}
-    function render(){if(!unlocked)return;const today=localDay();const dayRecords=records.filter(r=>r.day===today);const dayHelps=helps.filter(h=>localDay(new Date(h.time))===today);byId('kpis').innerHTML=[['등록 학생',profiles.length+'명','groups'],['오늘 완료',dayRecords.length+'회','check_circle'],['오늘 도움 요청',dayHelps.length+'회','support_agent'],['누적 활동',records.length+'회','pets']].map(([t,v,ic])=>`<div class="kpi"><span class="material-symbols-outlined">${ic}</span><div><small>${t}</small><strong>${v}</strong></div></div>`).join('');byId('profileCards').innerHTML=profiles.map(p=>{const cnt=records.filter(r=>r.profile===p.id).length;return `<div class="profile-card"><div><strong>${esc(p.name)}</strong><small>${cnt}개 활동 · ${p.id===active?'현재 사용 중':'대기'}</small></div><button class="app-btn ${p.id===active?'primary':'muted'} compact" data-activate="${esc(p.id)}">${p.id===active?'사용 중':'사용하기'}</button></div>`}).join('');byId('settingsProfile').innerHTML=profiles.map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('');if(!profiles.some(p=>p.id===selected))selected=active;byId('settingsProfile').value=selected;loadFields();renderRecords();}
+    function render(){if(!unlocked)return;const today=localDay();const dayRecords=records.filter(r=>r.day===today);const dayHelps=helps.filter(h=>localDay(new Date(h.time))===today);byId('kpis').innerHTML=[['등록 학생',profiles.length+'명','groups'],['오늘 완료',dayRecords.length+'회','check_circle'],['오늘 도움 요청',dayHelps.length+'회','support_agent'],['누적 활동',records.length+'회','pets']].map(([t,v,ic])=>`<div class="kpi"><span class="material-symbols-outlined">${ic}</span><div><small>${t}</small><strong>${v}</strong></div></div>`).join('');byId('profileCards').innerHTML=profiles.map(p=>{const cnt=records.filter(r=>r.profile===p.id).length;return `<div class="profile-card"><div><strong>${esc(p.name)}</strong><small>${cnt}개 활동 · ${p.id===active?'현재 사용 중':'대기'}</small></div><button class="app-btn ${p.id===active?'primary':'muted'} compact" data-activate="${esc(p.id)}">${p.id===active?'사용 중':'사용하기'}</button></div>`}).join('');byId('settingsProfile').innerHTML=profiles.map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('');if(!profiles.some(p=>p.id===selected))selected=active;byId('settingsProfile').value=selected;loadFields();renderRecords();renderDevicePanel(selected);}
     function loadFields(){const p=profiles.find(p=>p.id===selected)||current(),cfg={...defaults,...p.settings};for(const [id,[key]] of Object.entries(fields))byId(id).value=typeof cfg[key]==='boolean'?(cfg[key]?'1':'0'):String(cfg[key]);const checks=(id,items,allowed)=>{byId(id).innerHTML=items.map(([v,t])=>`<label><input type="checkbox" value="${esc(v)}" ${!Array.isArray(allowed)||allowed.includes(v)?'checked':''}>${esc(t)}</label>`).join('')};checks('calmOptions',Object.entries(activityInfo).map(([k,a])=>[k,a[0]]),cfg.calmAllowed);checks('aacOptions',aacBase.map(t=>[t,t]),cfg.aacAllowed);checks('scenarioOptions',scenarios.map((sc,i)=>[i,'상황 '+(i+1)]),cfg.scenarioAllowed);byId('customAAC').value=(cfg.customAAC||[]).join('\n');}
     const nameOf=id=>profiles.find(p=>p.id===id)?.name||'이전 학생';
     function renderRecords(){byId('recordList').innerHTML=records.length?records.map(r=>`<div class="record-row"><div><strong>${esc(nameOf(r.profile))} · ${esc(r.emotion||'마음 돌보기')}</strong><span>${esc((r.activities||[]).join(' · ')||'활동 완료')} · 처음 강도 ${esc(r.level??'미선택')} · 이후 ${esc(r.after||'미선택')} ${r.help?' · 도움 요청':''}</span></div><span>${esc(dateText(r.ended))}</span></div>`).join(''):'<p class="empty-state">저장된 활동 기록이 없습니다. 학생별 기록 저장을 켜면 활동 완료 시 기록됩니다.</p>';byId('helpList').innerHTML=helps.length?helps.map(r=>`<div class="record-row"><div><strong>${esc(nameOf(r.profile))} · 도움 요청</strong><span>${esc(r.emotion)}</span></div><span>${esc(dateText(r.time))}</span></div>`).join(''):'<p class="empty-state">저장된 도움 요청 기록이 없습니다.</p>'}
     async function unlock(){const pin=byId('pinInput').value;const msg=byId('pinMessage');if(!/^\d{4,12}$/.test(pin)){msg.textContent='숫자 4~12자리를 입력해 주세요.';return}const h=await hashPin(pin),old=storage.get(KEY+'pin',null);if(old&&old!==h){msg.textContent='PIN이 맞지 않습니다.';return}if(!old&&!storage.set(KEY+'pin',h)){msg.textContent='저장소를 사용할 수 없습니다.';return}unlocked=true;storage.set(KEY+'teacherUnlocked',true,true);byId('pinInput').value='';show()}
     byId('pinSubmit').onclick=unlock;byId('pinInput').addEventListener('keydown',e=>{if(e.key==='Enter')unlock()});byId('addProfile').onclick=()=>{const name=byId('newProfile').value.trim();if(!name){byId('profileMessage').textContent='별칭을 입력해 주세요.';return}if(profiles.some(p=>p.name===name)){byId('profileMessage').textContent='이미 있는 별칭입니다.';return}const p={id:uid(),name,settings:{...defaults}};profiles.push(p);storage.set(KEY+'profiles',profiles);selected=p.id;byId('newProfile').value='';byId('profileMessage').textContent='학생 프로필을 추가했습니다.';render()};
-    byId('profileCards').onclick=e=>{const b=e.target.closest('[data-activate]');if(!b)return;active=b.dataset.activate;storage.set(KEY+'active',active);selected=active;newRun();render()};byId('settingsProfile').onchange=e=>{selected=e.target.value;loadFields()};
+    byId('profileCards').onclick=e=>{const b=e.target.closest('[data-activate]');if(!b)return;active=b.dataset.activate;storage.set(KEY+'active',active);selected=active;if(device.mode==='shared'){sessionStudent=active;storage.set(KEY+'sessionStudent',active,true);}else{device.student=active;storage.set(KEY+'deviceMode',device);}newRun();render()};byId('settingsProfile').onchange=e=>{selected=e.target.value;loadFields()};
     byId('saveSettings').onclick=()=>{const p=profiles.find(p=>p.id===selected);if(!p)return;const s={...defaults};for(const [id,[key,parse]] of Object.entries(fields))s[key]=parse(byId(id).value);s.inhale=Math.max(2,Math.min(6,s.inhale||3));s.exhale=Math.max(2,Math.min(8,s.exhale||4));s.calmAllowed=$$('#calmOptions input:checked').map(x=>x.value);s.aacAllowed=$$('#aacOptions input:checked').map(x=>x.value);s.scenarioAllowed=$$('#scenarioOptions input:checked').map(x=>Number(x.value));s.customAAC=[...new Set(byId('customAAC').value.split(/\r?\n/).map(x=>x.trim().slice(0,45)).filter(Boolean))].slice(0,6);if(!s.calmAllowed.length||!s.aacAllowed.length||!s.scenarioAllowed.length){byId('settingsMessage').textContent='각 종류에서 최소 한 개의 카드를 선택해 주세요.';return}p.settings=s;storage.set(KEY+'profiles',profiles);byId('settingsMessage').textContent='설정을 저장했습니다.';loadFields()};
     byId('clearRecords').onclick=()=>{if(confirm('이 기기에 저장된 모든 활동 및 도움 요청 기록을 삭제할까요?')){records=[];helps=[];storage.set(KEY+'records',records);storage.set(KEY+'helps',helps);render()}};
     function csvCell(v){let t=String(v??'');if(/^[=+\-@\t\r]/.test(t))t="'"+t;return '"'+t.replace(/"/g,'""')+'"'}
@@ -181,7 +250,12 @@
     // Teacher state is only for the current tab and clears when leaving for student mode.
     $$('a[href="index.html"]').forEach(a=>a.addEventListener('click',()=>storage.set(KEY+'teacherUnlocked',false,true)));
   }
-  if(page!=='teacher')storage.set(KEY+'teacherUnlocked',false,true);initHeader();initEmotion();
+  installStudentStyles();
+  if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+  if(page!=='teacher')storage.set(KEY+'teacherUnlocked',false,true);
+  if(studentGate())return;
+  window.addEventListener('pageshow',e=>{if(e.persisted)location.reload();});
+  initHeader();initEmotion();
   if(page==='breathing')initBreathing();if(page==='activity')initActivity();if(page==='aac')initAAC();if(page==='practice')initPractice();if(page==='complete')initComplete();if(page==='records')initRecords();if(page==='teacher')initTeacher();
   if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){navigator.serviceWorker.register('./sw.js').catch(()=>{});}
   // On file:// pages, provide a clear launch hint rather than making a false offline/install promise.
