@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/>
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><title>나의 마음 지킴이 · 심호흡</title><link href="assets/ui.css" rel="stylesheet"/><link href="assets/app.css" rel="stylesheet"/><link href="manifest.webmanifest" rel="manifest"/><meta content="#fff8f3" name="theme-color"/><link href="assets/icon.png" rel="icon"/><script defer="" src="assets/icons.js"></script><script defer="" src="assets/app.js"></script></head><body class="bg-background font-body-md text-on-surface antialiased" data-page="breathing"><header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-24 w-full px-gutter flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md min-w-0"><a class="flex items-center justify-center w-14 h-14 rounded-2xl bg-surface-container-high hover:bg-surface-container-highest transition-colors flex-shrink-0 text-on-surface" data-path="emotion-home" href="index.html" title="처음으로 가기"><span class="material-symbols-outlined text-3xl">home</span></a><div class="flex items-center gap-space-sm min-w-0"><span class="font-headline-md text-headline-md text-primary tracking-tight truncate hidden sm:inline-block">나의 마음 지킴이</span><span class="font-body-md text-body-md text-on-surface-variant truncate hidden lg:inline-block">내 마음을 알고, 천천히 진정해요!</span></div></div><nav class="hidden xl:flex items-center gap-space-xs bg-surface-container-low p-1.5 rounded-full" data-active-classes="bg-primary-container text-on-primary-container font-label-md text-label-md rounded-2xl shadow-sm"><a class="px-space-md py- space-xs rounded-2xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" data-path="emotion-select" href="emotion.html">마음 알아채기</a><a class="px-space-md py- space-xs rounded-2xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" data-path="breathing-room" href="breathing.html">천천히 숨쉬기</a><a class="px-space-md py-space-xs rounded-2xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" data-path="sensory-calm" href="calm.html">마음 쉼터</a><a class="px-space-md py-space-xs rounded-2xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" data-path="my-feelings-record" href="records.html">오늘의 발자국</a></nav><div class="flex items-center gap-space-sm flex-shrink-0"><button class="flex items-center gap-space-xs px-space-md py-space-xs h-14 bg-error-container text-on-error-container rounded-full border-b-4 border-error/30 hover:bg-error-container/80 transition-all active:translate-y-0.5" data-action="help" title="선생님께 도움 요청하기" type="button"><span class="material-symbols-outlined text-2xl">support_agent</span><span class="font-label-md text-label-md">선생님 도와주세요!</span></button><button class="flex items-center justify-center w-14 h-14 rounded-full bg-secondary-fixed text-on-secondary-fixed hover:bg-secondary-fixed-dim transition-colors flex-shrink-0" data-action="guide" title="소리 안내 듣기 / 끄기" type="button"><span class="material-symbols-outlined text-2xl">volume_up</span></button><a class="flex items-center justify-center w-12 h-12 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors flex-shrink-0" data-path="teacher-settings" href="teacher.html" title="선생님 설정"><span class="material-symbols-outlined text-2xl">settings</span></a><img alt="봄이" class="w-8 h-8 rounded-full object-cover" data-original-src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKlCtdRXFVV6CEDJTGH2KJwqYNgw-UGr6fry-wc_wDQGRDe4fXB-nK1--CoHR1Sy5DaLVgX5M20TaR9u-56gffYGarcmViIslm351M7RhQZllteDNpgatVoEDufCHRJ1l-30f2vwtnSxdkE8xDpQaQEtt4ei2wcnfdfQnyx1LYjGKg-UkBBL5xk5Mow0yL0rwZbnZzE-AdRCDyCB7X46o5cuTVZie5QP1z7IxW" src="assets/p2-0.png"/></div></div></header><main class="w-full pt-16 bg-surface min-h-[calc(100vh-4rem)] flex flex-col justify-center"><div class="flex flex-col w-full h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] overflow-hidden select-none px-gutter py-space-sm justify-between">
+<!-- 1. 상단 진행 인디케이터 & 배너 바 -->
+<header class="w-full flex flex-col gap-space-xs flex-shrink-0">
+<!-- 3단계 스텝 네비게이션 인디케이터 -->
+<div class="w-full flex items-center justify-between bg-surface-container-low px-space-md py-space-xs rounded-full shadow-sm">
+<div class="flex items-center gap-space-sm">
+<span class="flex items-center justify-center w-10 h-10 rounded-full bg-primary-fixed text-on-primary-fixed shadow-sm">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant line-through opacity-70">1단계 멈추기</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">마쳤어요</span>
+</div>
+</div>
+<div class="h-1 flex-1 mx-space-sm bg-surface-container-high rounded-full overflow-hidden">
+<div class="w-full h-full bg-primary-container rounded-full"></div>
+</div>
+<!-- 현재 활성 2단계 -->
+<div class="flex items-center gap-space-sm bg-primary-fixed px-space-md py-1.5 rounded-full shadow-md">
+<span class="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-on-primary font-label-lg text-label-lg shadow-sm">
+          2
+        </span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-primary-fixed font-extrabold tracking-tight">2단계 숨쉬기</span>
+<span class="font-label-sm text-label-sm text-on-primary-fixed-variant">지금 하고 있어요 🌿</span>
+</div>
+</div>
+<div class="h-1 flex-1 mx-space-sm bg-surface-container-high rounded-full"></div>
+<div class="flex items-center gap-space-sm opacity-50">
+<span class="flex items-center justify-center w-10 h-10 rounded-full bg-surface-container-highest text-on-surface-variant font-label-lg text-label-lg">
+          3
+        </span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">3단계 마음 확인</span>
+<span class="font-label-sm text-label-sm text-outline">기다려요</span>
+</div>
+</div>
+</div>
+<!-- 친근한 음성 가이드 배너 -->
+<div class="w-full flex items-center justify-between bg-surface-container px-space-md py-space-xs rounded-2xl shadow-sm">
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center justify-center w-12 h-12 rounded-full bg-secondary-fixed text-on-secondary-fixed hover:bg-secondary-fixed-dim transition-transform active:scale-95 shadow-sm" id="ttsToggleBtn" title="호흡 음성 안내 켜기 / 끄기" type="button">
+<span class="material-symbols-outlined text-2xl" id="ttsIcon" style="font-variation-settings: 'FILL' 1;">volume_up</span>
+</button>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface flex items-center gap-2">
+<span>숨을 천천히 쉬어요</span>
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">spa</span>
+</span>
+<p class="font-body-md text-body-md text-on-surface-variant m-0">
+            코로 맑은 공기를 마시고, 입으로 무거운 걱정을 후- 날려보내요.
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-lowest px-space-md py-1.5 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-primary text-2xl">timer</span>
+<span class="font-label-md text-label-md text-on-surface" id="globalCycleText">3회 중 <strong>2회차</strong> 진행 중</span>
+</div>
+</div>
+</header>
+<!-- 2. 중앙 호흡 상호작용 영역 (고양이 가이드 + 인터랙티브 호흡원 + 단계 카운터) -->
+<main class="w-full flex-1 flex flex-row items-center justify-between gap-space-md my-space-xs min-h-0 px-space-sm">
+<!-- 좌측: 마음을 편안하게 돕는 수호 고양이 캐릭터 일러스트 -->
+<div class="hidden lg:flex flex-col items-center justify-center w-64 xl:w-72 bg-surface-container-low p-space-md rounded-3xl shadow-sm relative flex-shrink-0">
+<div class="absolute -top-3 bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full font-label-sm text-label-sm shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-base">favorite</span>
+<span>고양이 봄이</span>
+</div>
+<!-- 고양이 마스코트 (배에 손 올리고 평온하게 호흡) -->
+<div class="w-44 h-44 xl:w-48 xl:h-48 relative flex items-center justify-center">
+<svg class="w-full h-full drop-shadow-md" fill="none" viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<!-- 부드러운 아우라 -->
+<circle cx="100" cy="100" fill="#f2e6db" opacity="0.6" r="85"></circle>
+<!-- 고양이 귀 -->
+<path d="M50 70 L40 25 L85 55 Z" fill="#e3d8cd"></path>
+<path d="M52 64 L46 36 L76 54 Z" fill="#ffdad6"></path>
+<path d="M150 70 L160 25 L115 55 Z" fill="#e3d8cd"></path>
+<path d="M148 64 L154 36 L124 54 Z" fill="#ffdad6"></path>
+<!-- 고양이 얼굴 -->
+<ellipse cx="100" cy="95" fill="#fff8f3" rx="65" ry="55"></ellipse>
+<!-- 편안히 감은 두 눈 (호흡 중) -->
+<path d="M70 92 Q80 102 90 92" fill="none" stroke="#201b14" stroke-linecap="round" stroke-width="4"></path>
+<path d="M110 92 Q120 102 130 92" fill="none" stroke="#201b14" stroke-linecap="round" stroke-width="4"></path>
+<!-- 분홍 코와 따뜻한 미소 -->
+<path d="M96 104 L104 104 L100 110 Z" fill="#ba1a1a" opacity="0.6"></path>
+<path d="M100 110 Q94 118 86 114" fill="none" stroke="#201b14" stroke-linecap="round" stroke-width="3"></path>
+<path d="M100 110 Q106 118 114 114" fill="none" stroke="#201b14" stroke-linecap="round" stroke-width="3"></path>
+<!-- 볼터치 -->
+<ellipse cx="65" cy="105" fill="#ffdad6" rx="9" ry="6"></ellipse>
+<ellipse cx="135" cy="105" fill="#ffdad6" rx="9" ry="6"></ellipse>
+<!-- 고양이 몸체 -->
+<ellipse cx="100" cy="165" fill="#fff8f3" rx="55" ry="40"></ellipse>
+<!-- 배 위에 모은 두 발 (편안한 자세) -->
+<circle cx="85" cy="155" fill="#ece1d6" r="14"></circle>
+<circle cx="115" cy="155" fill="#ece1d6" r="14"></circle>
+<path d="M82 153 C82 157 88 157 88 153" fill="none" stroke="#6e7a71" stroke-linecap="round" stroke-width="2"></path>
+<path d="M112 153 C112 157 118 157 118 153" fill="none" stroke="#6e7a71" stroke-linecap="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="mt-space-xs text-center">
+<p class="font-body-md text-body-md text-on-surface font-semibold m-0">"봄이 배를 봐요."</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant m-0">함께 볼록하게 불렸다가 쉬어요</p>
+</div>
+</div>
+<!-- 중앙: 대형 호흡 인터랙션 (꽃/풍선 펄스 애니메이션) -->
+<div class="flex-1 h-full flex flex-col items-center justify-center relative min-w-0">
+<!-- 호흡 원형 컨테이너 -->
+<div class="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 flex items-center justify-center">
+<!-- 배경 부드러운 후광 링들 -->
+<div class="absolute inset-0 rounded-full bg-primary-fixed/30 filter blur-xl transition-all duration-1000 transform scale-90" id="haloOuter"></div>
+<div class="absolute inset-4 rounded-full bg-secondary-fixed/40 filter blur-md transition-all duration-1000 transform scale-95" id="haloMiddle"></div>
+<!-- 실시간 SVG 호흡 원형 게이지 -->
+<svg class="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="none" r="44" stroke="#f2e6db" stroke-width="6"></circle>
+<circle class="transition-all duration-300 ease-linear" cx="50" cy="50" fill="none" id="breathProgressCircle" r="44" stroke="#4eba87" stroke-dasharray="276.46" stroke-dashoffset="138" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<!-- 움직이는 메인 호흡 볼 (축소/확대 트랜지션) -->
+<div class="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full bg-gradient-to-tr from-primary-container via-secondary-fixed to-primary-fixed shadow-xl flex flex-col items-center justify-center text-center p-space-sm transform transition-transform duration-700 ease-in-out" id="breathSphere">
+<!-- 상태 아이콘 -->
+<div class="w-16 h-16 rounded-full bg-surface-container-lowest/80 flex items-center justify-center shadow-sm mb-2" id="breathIconWrapper">
+<span class="material-symbols-outlined text-4xl text-primary animate-bounce" id="breathIcon">air</span>
+</div>
+<!-- 호흡 지시어 텍스트 -->
+<h2 class="font-headline-lg text-headline-lg sm:font-headline-xl sm:text-headline-xl text-on-primary-container tracking-tight m-0" id="breathActionText">
+            들이마셔요
+          </h2>
+<p class="font-body-xl text-body-xl text-on-primary-container font-bold m-0 mt-1" id="breathSubText">
+            코로 쏘옥 (3초)
+          </p>
+<!-- 직관적 카운트다운 타이머 숫자 -->
+<div class="mt-2 px-4 py-1 rounded-full bg-surface-container-lowest/90 shadow-sm">
+<span class="font-headline-md text-headline-md text-primary font-black tracking-widest" id="breathCount">3</span>
+</div>
+</div>
+</div>
+<!-- 보조 친절 가이드 칩 -->
+<div class="mt-space-sm px-space-md py-1.5 bg-surface-container rounded-full text-center shadow-sm" id="sensoryTip">
+<span class="font-label-md text-label-md text-on-surface-variant">
+          어깨의 힘을 툭 빼고, 가슴을 시원하게 채워보세요 ✨
+        </span>
+</div>
+</div>
+<!-- 우측: 3회 호흡 진행 상황 카드 -->
+<div class="flex flex-col gap-space-sm w-56 sm:w-64 bg-surface-container-low p-space-md rounded-3xl shadow-sm flex-shrink-0">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-bold">호흡 발자국</span>
+<span class="font-label-sm text-label-sm text-primary font-extrabold" id="stepCounterBadge">2 / 3 완료</span>
+</div>
+<!-- 1번째 숨 (완료 상태) -->
+<div class="flex items-center gap-space-sm p-space-sm rounded-2xl bg-surface-container-lowest shadow-sm transition-all" id="stepCard1">
+<div class="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-primary shadow-sm flex-shrink-0">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-bold">1번째 숨</span>
+<span class="font-body-md text-body-md text-primary truncate">완벽하게 해냈어요!</span>
+</div>
+</div>
+<!-- 2번째 숨 (현재 활성) -->
+<div class="flex items-center gap-space-sm p-space-sm rounded-2xl bg-primary-fixed/50 shadow-md ring-2 ring-primary transition-all" id="stepCard2">
+<div class="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center shadow-sm flex-shrink-0">
+<span class="material-symbols-outlined text-2xl animate-spin" style="font-variation-settings: 'FILL' 1;">sync</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-primary-fixed font-black">2번째 숨</span>
+<span class="font-body-md text-body-md text-on-primary-fixed-variant truncate">지금 쉬고 있어요</span>
+</div>
+</div>
+<!-- 3번째 숨 (대기 중) -->
+<div class="flex items-center gap-space-sm p-space-sm rounded-2xl bg-surface-container-highest/60 opacity-60 shadow-sm transition-all" id="stepCard3">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-outline shadow-sm flex-shrink-0">
+<span class="material-symbols-outlined text-2xl">eco</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-medium">3번째 숨</span>
+<span class="font-body-md text-body-md text-outline truncate">곧 시작해요</span>
+</div>
+</div>
+<!-- 격려 문구 카드 -->
+<div class="mt-auto bg-surface-container-high p-space-sm rounded-2xl text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant m-0">
+          마음이 천천히<br/><strong class="text-primary font-bold">맑고 고요해지고 있어요</strong>
+</p>
+</div>
+</div>
+</main>
+<!-- 3. 하단 조작 및 내비게이션 컨트롤 바 (태블릿 최적화 64px+ 터치 타겟) -->
+<footer class="w-full flex-shrink-0 bg-surface-container-low px-space-md py-space-sm rounded-3xl shadow-sm flex items-center justify-between gap-space-md">
+<!-- 좌측 보조 행동: 처음으로 & 다시 시작 -->
+<div class="flex items-center gap-space-sm">
+<a class="min-h-[64px] px-space-md bg-surface-container text-on-surface-variant hover:bg-surface-container-high rounded-full flex items-center justify-center gap-space-xs transition-colors shadow-sm active:scale-95" data-path="emotion-home" href="index.html" title="마음 알아채기 화면으로 돌아가기">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+<span class="font-label-md text-label-md hidden sm:inline">처음으로</span>
+</a>
+<button class="min-h-[64px] px-space-md bg-surface-container text-on-surface-variant hover:bg-surface-container-high rounded-full flex items-center justify-center gap-space-xs transition-colors shadow-sm active:scale-95" id="resetBreathBtn" title="처음부터 다시 숨쉬기" type="button">
+<span class="material-symbols-outlined text-2xl">replay</span>
+<span class="font-label-md text-label-md hidden sm:inline">다시 하기</span>
+</button>
+</div>
+<!-- 중앙 메인 컨트롤: 시작 / 일시정지 -->
+<div class="flex items-center gap-space-sm">
+<button class="min-h-[64px] min-w-[200px] px-space-lg bg-primary-container hover:bg-primary-container/90 text-on-primary-container rounded-full flex items-center justify-center gap-space-sm shadow-md active:translate-y-0.5 transition-all" id="togglePlayBtn" type="button">
+<span class="material-symbols-outlined text-3xl" id="playBtnIcon" style="font-variation-settings: 'FILL' 1;">pause_circle</span>
+<span class="font-headline-md text-headline-md tracking-tight" id="playBtnText">잠깐 멈추기</span>
+</button>
+</div>
+<!-- 우측 전진 & 지원 버튼군: 완료/다음 & 선생님 호출 -->
+<div class="flex items-center gap-space-sm">
+<a class="min-h-[64px] px-space-md sm:px-space-lg bg-surface-container-highest hover:bg-surface-dim text-on-surface rounded-full flex items-center justify-center gap-space-xs transition-all shadow-sm active:scale-95" data-action="skip-breath" href="check.html" title="호흡을 건너뛰고 마음 확인하기">
+<span class="font-label-lg text-label-lg font-bold">건너뛰기</span>
+<span class="material-symbols-outlined text-2xl">fast_forward</span>
+</a>
+<a class="min-h-[64px] px-space-lg bg-primary text-on-primary hover:bg-primary/90 rounded-full flex items-center justify-center gap-space-xs shadow-md transition-all active:translate-y-0.5" href="check.html" id="finishStepBtn" title="3단계 마음 확인으로 이동하기">
+<span class="font-headline-md text-headline-md font-bold">다 쉬었어요!</span>
+<span class="material-symbols-outlined text-3xl font-bold">arrow_forward</span>
+</a>
+</div>
+</footer>
+</div>
+<!-- 호흡 타이머 및 시각 인터랙션 스크립트 -->
+</main><footer class="w-full bg-surface-container-low py-2"><div class="w-full px-gutter flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-2xl">pets</span><span class="font-body-md text-body-md text-on-surface-variant">나의 마음 지킴이 • 따뜻하고 편안한 특수교육 정서 지원</span></div><div class="flex items-center gap-space-md"><span class="font-label-sm text-label-sm text-on-surface-variant">괜찮아요, 천천히 말해도 돼요</span></div></div></footer>
+</body></html>

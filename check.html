@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/>
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><title>나의 마음 지킴이 · 마음 확인</title><link href="assets/ui.css" rel="stylesheet"/><link href="assets/app.css" rel="stylesheet"/><link href="manifest.webmanifest" rel="manifest"/><meta content="#fff8f3" name="theme-color"/><link href="assets/icon.png" rel="icon"/><script defer="" src="assets/icons.js"></script><script defer="" src="assets/app.js"></script></head><body class="bg-background font-body-md text-on-surface antialiased" data-page="check"><header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-24 w-full px-gutter flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md min-w-0"><a class="flex items-center justify-center w-14 h-14 rounded-2xl bg-surface-container-high hover:bg-surface-container-highest transition-colors flex-shrink-0 text-on-surface" data-path="emotion-home" href="index.html" title="처음으로 가기"><span class="material-symbols-outlined text-3xl">home</span></a><div class="flex items-center gap-space-sm min-w-0"><span class="font-headline-md text-headline-md text-primary tracking-tight truncate hidden sm:inline-block">나의 마음 지킴이</span><span class="font-body-md text-body-md text-on-surface-variant truncate hidden lg:inline-block">내 마음을 알고, 천천히 진정해요!</span></div></div><nav class="hidden xl:flex items-center gap-space-xs bg-surface-container-low p-1.5 rounded-full" data-active-classes="bg-primary-container text-on-primary-container font-label-md text-label-md rounded-2xl shadow-sm"><a class="px-space-md py- space-xs rounded-2xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" data-path="emotion-select" href="emotion.html">마음 알아채기</a><a class="px-space-md py- space-xs rounded-2xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" data-path="breathing-room" href="breathing.html">천천히 숨쉬기</a><a class="px-space-md py-space-xs rounded-2xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" data-path="sensory-calm" href="calm.html">마음 쉼터</a><a class="px-space-md py-space-xs rounded-2xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" data-path="my-feelings-record" href="records.html">오늘의 발자국</a></nav><div class="flex items-center gap-space-sm flex-shrink-0"><button class="flex items-center gap-space-xs px-space-md py-space-xs h-14 bg-error-container text-on-error-container rounded-full border-b-4 border-error/30 hover:bg-error-container/80 transition-all active:translate-y-0.5" data-action="help" title="선생님께 도움 요청하기" type="button"><span class="material-symbols-outlined text-2xl">support_agent</span><span class="font-label-md text-label-md">선생님 도와주세요!</span></button><button class="flex items-center justify-center w-14 h-14 rounded-full bg-secondary-fixed text-on-secondary-fixed hover:bg-secondary-fixed-dim transition-colors flex-shrink-0" data-action="guide" title="소리 안내 듣기 / 끄기" type="button"><span class="material-symbols-outlined text-2xl">volume_up</span></button><a class="flex items-center justify-center w-12 h-12 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors flex-shrink-0" data-path="teacher-settings" href="teacher.html" title="선생님 설정"><span class="material-symbols-outlined text-2xl">settings</span></a><img alt="봄이" class="w-8 h-8 rounded-full object-cover" data-original-src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKlCtdRXFVV6CEDJTGH2KJwqYNgw-UGr6fry-wc_wDQGRDe4fXB-nK1--CoHR1Sy5DaLVgX5M20TaR9u-56gffYGarcmViIslm351M7RhQZllteDNpgatVoEDufCHRJ1l-30f2vwtnSxdkE8xDpQaQEtt4ei2wcnfdfQnyx1LYjGKg-UkBBL5xk5Mow0yL0rwZbnZzE-AdRCDyCB7X46o5cuTVZie5QP1z7IxW" src="assets/p2-0.png"/></div></div></header><main class="w-full pt-16 bg-surface min-h-[calc(100vh-4rem)] flex flex-col justify-center"><div class="flex flex-col w-full h-[calc(100vh-6rem)] overflow-hidden justify-between px-margin py-space-sm select-none">
+<!-- Top Stepper & Friendly Audio Instruction Bar -->
+<div class="flex flex-col gap-space-xs">
+<!-- Stepper Navigation Pill -->
+<div class="flex items-center justify-between bg-surface-container-low px-space-md py-space-xs rounded-full shadow-sm">
+<div class="flex items-center gap-space-sm">
+<!-- Step 1: Done -->
+<div class="flex items-center gap-space-xs bg-primary/10 text-primary px-space-sm py-1 rounded-full">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm">1단계 멈추기</span>
+</div>
+<span class="text-outline-variant font-label-sm">➔</span>
+<!-- Step 2: Done -->
+<div class="flex items-center gap-space-xs bg-primary/10 text-primary px-space-sm py-1 rounded-full">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm">2단계 숨쉬기</span>
+</div>
+<span class="text-outline-variant font-label-sm">➔</span>
+<!-- Step 3: Current -->
+<div class="flex items-center gap-space-xs bg-primary text-on-primary px-space-md py-1 rounded-full shadow-sm animate-pulse">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">eco</span>
+<span class="font-label-md text-label-md">3단계 마음 확인</span>
+</div>
+</div>
+<!-- Compact Audio Voice Hint -->
+<button class="flex items-center gap-space-xs bg-secondary-fixed text-on-secondary-fixed px-space-md py-1.5 rounded-full hover:bg-secondary-fixed-dim transition-all shadow-sm active:scale-95" onclick="playVoicePrompt()" title="소리 안내 듣기">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">volume_up</span>
+<span class="font-label-sm text-label-sm truncate">“숨을 고르고 난 뒤, 지금 내 마음은 어떤가요?”</span>
+</button>
+</div>
+<!-- Screen Title Bar -->
+<div class="flex items-center justify-between px-space-xs mt-1">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight flex items-center gap-space-xs">
+          지금은 마음이 어떤가요?
+          <span class="text-primary font-headline-md text-headline-md">🌱</span>
+</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          솔직하게 골라도 괜찮아요. 무조건 다 나아지지 않아도 괜찮아요.
+        </p>
+</div>
+<!-- Mascot Mini Encouragement Badge -->
+<div class="flex items-center gap-space-xs bg-surface-container px-space-md py-2 rounded-2xl shadow-sm">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">pets</span>
+<span class="font-label-sm text-label-sm text-on-surface">선생님과 고양이 친구가 기다리고 있어요</span>
+</div>
+</div>
+</div>
+<!-- Central 3 Big Re-Check Emotion Cards -->
+<div class="grid grid-cols-3 gap-space-md my-space-xs items-stretch h-[290px]">
+<!-- Card 1: 아직 많이 화나요 -->
+<button class="emotion-card group relative flex flex-col justify-between p-space-md rounded-lg bg-surface-container-low text-left transition-all duration-200 shadow-md hover:shadow-xl active:scale-[0.98] border-none" id="emotion-card-1" onclick="selectEmotion(1)">
+<div class="flex items-start justify-between w-full">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-error-container text-on-error-container font-label-md text-label-md">1</span>
+<span class="px-2.5 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm">숨 더 쉬기 필요</span>
+</div>
+<div class="status-indicator w-7 h-7 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-lg">check</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm my-auto">
+<div class="w-24 h-24 rounded-2xl bg-error-container/40 overflow-hidden flex-shrink-0 flex items-center justify-center shadow-inner">
+<img alt="봄이 고양이 그림" class="w-full h-full object-cover" data-alt="Chubby friendly orange tabby cat sitting with cheeks puffed out slightly, taking slow heavy breaths with a glowing warm rose heart hovering softly, gentle picture-book style illustration for neurodiverse children" data-original-src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtnsYTLwhfCAQ2gh6cckjRAC36w8qS8oRkOvcyrniWulGDXVeurjgiw9seb5vG8KmwhZnMdfTwxxJvcYgzk4l2dVzhmPl2weF89jV-wuC909sIVbJdxmDpSFDpCdAFqCVLqlnUK6f--XxZP03vgIuDRPCHytppTJ_6CpGg5XyXRhJZVIzvI60d-kuhi-lyW5-GxP8CiZhvlbVCxsgfz7MgDjAC4IRNHwGN4raR" src="assets/p4-1.png"/>
+</div>
+<div class="min-w-0">
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight leading-tight">아직 많이 화나요</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">괜찮아요, 천천히 더 진정해도 돼요.</p>
+</div>
+</div>
+<div class="w-full bg-surface-container px-space-sm py-1.5 rounded-full text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">추천: [숨 더 쉬기] 또는 [도움 받기]</span>
+</div>
+</button>
+<!-- Card 2: 조금 나아졌어요 -->
+<button class="emotion-card group relative flex flex-col justify-between p-space-md rounded-lg bg-surface-container-low text-left transition-all duration-200 shadow-md hover:shadow-xl active:scale-[0.98] border-none" id="emotion-card-2" onclick="selectEmotion(2)">
+<div class="flex items-start justify-between w-full">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md">2</span>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">마음 풀리는 중</span>
+</div>
+<div class="status-indicator w-7 h-7 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-lg">check</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm my-auto">
+<div class="w-24 h-24 rounded-2xl bg-secondary-fixed/40 overflow-hidden flex-shrink-0 flex items-center justify-center shadow-inner">
+<img alt="봄이 고양이 그림" class="w-full h-full object-cover" data-alt="Comfortable calico cat gently tucking paws together, giving a tender relaxed smile under warm golden sunlight beams, heartwarming soft pastel palette children's picture book illustration" data-original-src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgkeKPw5_y4kgRDum_bcH0NKjomdyJyaJN-6pNXSuZTnpoT8KkuQ2cx0lewK9RlhkT1M-J4ZR54mMF4BpmJ1vEBcq6WIl-6KQpPMLc7npJlfhAMx2OFVZSSIn3oMW3_xOuJGvhy6onUIm0I44dpDDTeZPRYATL3aurjsFIIXdeblkNjQQNF3YaK77ybhKaite3twEdn-YljOKgzNghsCMmWD43JpxKgFheuZrE" src="assets/p4-2.png"/>
+</div>
+<div class="min-w-0">
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight leading-tight">조금 나아졌어요</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">마음이 조금씩 풀리고 있어요.</p>
+</div>
+</div>
+<div class="w-full bg-surface-container px-space-sm py-1.5 rounded-full text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">추천: [마음 진정 활동하기]</span>
+</div>
+</button>
+<!-- Card 3: 괜찮아졌어요 -->
+<button class="emotion-card group relative flex flex-col justify-between p-space-md rounded-lg bg-surface-container-low text-left transition-all duration-200 shadow-md hover:shadow-xl active:scale-[0.98] border-none" id="emotion-card-3" onclick="selectEmotion(3)">
+<div class="flex items-start justify-between w-full">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed font-label-md text-label-md">3</span>
+<span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm">편안하고 차분함</span>
+</div>
+<div class="status-indicator w-7 h-7 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-lg">check</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm my-auto">
+<div class="w-24 h-24 rounded-2xl bg-primary-fixed/40 overflow-hidden flex-shrink-0 flex items-center justify-center shadow-inner">
+<img alt="봄이 고양이 그림" class="w-full h-full object-cover" data-alt="Bright happy cream cat holding a sprig of mint blossom, cheerful sparkling eyes and a soft peaceful aura, comforting soft colors special education illustration" data-original-src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmqTV_DnNzNFKxlLivTkuy8l6IfZ6icOJFtXYbI84iDt4BK9_OQeTg-n2Grx4QDmcjAcgX-F1YDyGLZTulcq1SzPIiPAwxnVK2VsKWKKtFDK9MFBV7zS91Cc1AYmMYdkwleOxdbcLv2Wni3-XDrhY32IYljf0LFL01oTmeFyMfNK13h8nn4tFoTdaN29nlRPoRTGdshTOdep0rGFQ6g8jdMhpDnV5yN0rRVZ5_" src="assets/p4-3.png"/>
+</div>
+<div class="min-w-0">
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight leading-tight">괜찮아졌어요</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">마음이 편안하고 차분해졌어요!</p>
+</div>
+</div>
+<div class="w-full bg-surface-container px-space-sm py-1.5 rounded-full text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">추천: [활동 완료하고 스탬프 받기]</span>
+</div>
+</button>
+</div>
+<!-- Dynamic Responsive Action Pathway Banner -->
+<div class="bg-surface-container px-space-md py-space-sm rounded-lg shadow-sm transition-all duration-300" id="pathway-container">
+<!-- Pathway State 1 (Default / Still Upset) -->
+<div class="pathway-item flex items-center justify-between gap-space-md" id="pathway-content-1">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-full bg-error-container text-on-error-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">self_improvement</span>
+</div>
+<div>
+<span class="font-label-lg text-label-lg text-on-surface block">아직 속상해도 정말 괜찮아요. 천천히 가요.</span>
+<span class="font-body-md text-body-md text-on-surface-variant">호흡을 몇 번 더 하거나, 선생님과 편안하게 이야기 나눌 수 있어요.</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs flex-shrink-0">
+<button class="px-space-md py-2 bg-surface text-on-surface rounded-full font-label-md text-label-md shadow-sm hover:bg-surface-container-high transition-colors" data-go="breathing.html">
+          다시 심호흡하기
+        </button>
+<button class="px-space-md py-2 bg-error-container text-on-error-container rounded-full font-label-md text-label-md shadow-sm hover:bg-error-container/80 transition-colors" data-go="calm.html">
+          마음 쉼터 가기
+        </button>
+</div>
+</div>
+<!-- Pathway State 2 (Better) -->
+<div class="pathway-item hidden flex items-center justify-between gap-space-md" id="pathway-content-2">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">spa</span>
+</div>
+<div>
+<span class="font-label-lg text-label-lg text-on-surface block">마음이 조금씩 부드러워지고 있군요!</span>
+<span class="font-body-md text-body-md text-on-surface-variant">음악을 듣거나 그림을 그리며 마음을 더 맑게 만들어볼까요?</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs flex-shrink-0">
+<button class="px-space-md py-2 bg-secondary text-on-secondary rounded-full font-label-md text-label-md shadow-sm hover:bg-secondary/90 transition-colors" data-go="calm.html">
+          마음 진정 방법 고르기
+        </button>
+</div>
+</div>
+<!-- Pathway State 3 (Peaceful) -->
+<div class="pathway-item hidden flex items-center justify-between gap-space-md" id="pathway-content-3">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">sentiment_very_satisfied</span>
+</div>
+<div>
+<span class="font-label-lg text-label-lg text-on-surface block">와, 스스로 마음을 지켜낸 멋진 순간이에요! 칭찬해요!</span>
+<span class="font-body-md text-body-md text-on-surface-variant">오늘의 발자국에 예쁜 칭찬 스탬프를 찍고 선생님께 알려요.</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs flex-shrink-0">
+<button class="px-space-md py-2 bg-primary text-on-primary rounded-full font-label-md text-label-md shadow-sm hover:bg-primary/90 transition-colors" data-action="finish">
+          참 잘했어요 스탬프 받기
+        </button>
+</div>
+</div>
+</div>
+<!-- Bottom Touch-Friendly Control Bar -->
+<div class="flex items-center justify-between gap-space-md pt-2 pb-1">
+<!-- Back to Step 2 Breathing -->
+<a class="h-16 px-space-lg flex items-center gap-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface rounded-full shadow-sm active:scale-95 transition-all" data-path="breathing-room" href="breathing.html">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+<span class="font-label-lg text-label-lg">2단계 숨쉬기로 돌아가기</span>
+</a>
+<!-- Always Present Safe Teacher Call -->
+<button class="h-16 px-space-lg flex items-center gap-space-xs bg-error-container text-on-error-container rounded-full shadow-md hover:bg-error-container/85 active:scale-95 transition-all" data-go="aac.html" type="button"><span class="material-symbols-outlined text-xl">chat_bubble</span><span>선생님께 말하기</span></button>
+<!-- Next Step CTA -->
+<a class="h-16 px-space-xl flex items-center gap-space-xs bg-primary text-on-primary rounded-full shadow-lg hover:bg-primary/90 active:scale-95 transition-all" href="calm.html" id="btn-next-step">
+<span class="font-label-lg text-label-lg">다음 단계로 가기</span>
+<span class="material-symbols-outlined text-2xl">arrow_forward</span>
+</a>
+</div>
+</div>
+<script>
+  let currentSelection = 2;
+
+  function selectEmotion(index) {
+    currentSelection = index;
+
+    // Reset all cards styling
+    for (let i = 1; i <= 3; i++) {
+      const card = document.getElementById(`emotion-card-${i}`);
+      const indicator = card.querySelector('.status-indicator');
+      const icon = indicator.querySelector('.material-symbols-outlined');
+      const pathway = document.getElementById(`pathway-content-${i}`);
+
+      if (i === index) {
+        // Active state
+        card.classList.remove('bg-surface-container-low');
+        if (i === 1) {
+          card.classList.add('bg-error-container/20', 'shadow-xl', 'scale-[1.02]');
+        } else if (i === 2) {
+          card.classList.add('bg-secondary-fixed/30', 'shadow-xl', 'scale-[1.02]');
+        } else {
+          card.classList.add('bg-primary-fixed/30', 'shadow-xl', 'scale-[1.02]');
+        }
+        indicator.classList.remove('bg-surface-container-highest', 'text-on-surface-variant');
+        indicator.classList.add('bg-primary', 'text-on-primary');
+        icon.style.fontVariationSettings = "'FILL' 1";
+        
+        pathway.classList.remove('hidden');
+        pathway.classList.add('flex');
+      } else {
+        // Inactive state
+        card.classList.remove('bg-error-container/20', 'bg-secondary-fixed/30', 'bg-primary-fixed/30', 'shadow-xl', 'scale-[1.02]');
+        card.classList.add('bg-surface-container-low');
+        indicator.classList.remove('bg-primary', 'text-on-primary');
+        indicator.classList.add('bg-surface-container-highest', 'text-on-surface-variant');
+        icon.style.fontVariationSettings = "'FILL' 0";
+
+        pathway.classList.remove('flex');
+        pathway.classList.add('hidden');
+      }
+    }
+
+    // Dynamic destination update for next step
+    const nextBtn = document.getElementById('btn-next-step');
+    if (index === 1) {
+      nextBtn.setAttribute('data-path', 'breathing-room');
+      nextBtn.querySelector('span:first-child').innerText = '더 숨쉬러 가기';
+    } else if (index === 2) {
+      nextBtn.setAttribute('data-path', 'sensory-calm');
+      nextBtn.querySelector('span:first-child').innerText = '마음 쉼터 가기';
+    } else {
+      nextBtn.setAttribute('data-path', 'my-feelings-record');
+      nextBtn.querySelector('span:first-child').innerText = '발자국 기록하기';
+    }
+  }
+
+  function playVoicePrompt() {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance('숨을 고르고 난 뒤, 지금 내 마음은 어떤지 천천히 느껴봐요. 솔직하게 골라도 괜찮아요.');
+      utterance.lang = 'ko-KR';
+      utterance.rate = 0.85;
+      utterance.pitch = 1.1;
+      window.speechSynthesis.speak(utterance);
+    }
+  }
+
+  function requestTeacherCall() {
+    alert('선생님께 알림을 전송했습니다. 고양이 친구와 잠시만 편안하게 기다려주세요.');
+  }
+
+  // Set default selection on initial load
+  selectEmotion(2);
+</script></main><footer class="w-full bg-surface-container-low py-2"><div class="w-full px-gutter flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-2xl">pets</span><span class="font-body-md text-body-md text-on-surface-variant">나의 마음 지킴이 • 따뜻하고 편안한 특수교육 정서 지원</span></div><div class="flex items-center gap-space-md"><span class="font-label-sm text-label-sm text-on-surface-variant">괜찮아요, 천천히 말해도 돼요</span></div></div></footer>
+</body></html>

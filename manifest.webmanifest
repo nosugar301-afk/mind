@@ -1,0 +1,26 @@
+{
+  "name": "나의 마음 지킴이",
+  "short_name": "마음 지킴이",
+  "description": "특수학급 학생용 감정 인식·자기조절 연습 웹앱",
+  "lang": "ko",
+  "id": "./",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fff8f3",
+  "theme_color": "#fff8f3",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

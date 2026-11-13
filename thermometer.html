@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/>
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><title>나의 마음 지킴이 · 마음 온도계</title><link href="assets/ui.css" rel="stylesheet"/><link href="assets/app.css" rel="stylesheet"/><link href="manifest.webmanifest" rel="manifest"/><meta content="#fff8f3" name="theme-color"/><link href="assets/icon.png" rel="icon"/><script defer="" src="assets/icons.js"></script><script defer="" src="assets/app.js"></script></head><body class="bg-background font-body-md text-on-surface antialiased" data-page="thermometer"><header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-24 w-full px-gutter flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md min-w-0"><a class="flex items-center justify-center w-14 h-14 rounded-2xl bg-surface-container-high hover:bg-surface-container-highest transition-colors flex-shrink-0 text-on-surface" data-path="emotion-home" href="index.html" title="처음으로 가기"><span class="material-symbols-outlined text-3xl">home</span></a><div class="flex items-center gap-space-sm min-w-0"><span class="font-headline-md text-headline-md text-primary tracking-tight truncate hidden sm:inline-block">나의 마음 지킴이</span><span class="font-body-md text-body-md text-on-surface-variant truncate hidden lg:inline-block">내 마음을 알고, 천천히 진정해요!</span></div></div><nav class="hidden xl:flex items-center gap-space-xs bg-surface-container-low p-1.5 rounded-full" data-active-classes="bg-primary-container text-on-primary-container font-label-md text-label-md rounded-2xl shadow-sm"><a aria-current="page" class="px-space-md py- space-xs transition-all bg-primary-container text-on-primary-container font-label-md text-label-md rounded-2xl shadow-sm" data-path="emotion-select" href="emotion.html">마음 알아채기</a><a class="px-space-md py-space-xs rounded-2xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" data-path="breathing-room" href="breathing.html">천천히 숨쉬기</a><a class="px-space-md py-space-xs rounded-2xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" data-path="sensory-calm" href="calm.html">마음 쉼터</a><a class="px-space-md py-space-xs rounded-2xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" data-path="my-feelings-record" href="records.html">오늘의 발자국</a></nav><div class="flex items-center gap-space-sm flex-shrink-0"><button class="flex items-center gap-space-xs px-space-md py-space-xs h-14 bg-error-container text-on-error-container rounded-full border-b-4 border-error/30 hover:bg-error-container/80 transition-all active:translate-y-0.5" data-action="help" title="선생님께 도움 요청하기" type="button"><span class="material-symbols-outlined text-2xl">support_agent</span><span class="font-label-md text-label-md">선생님 도와주세요!</span></button><button class="flex items-center justify-center w-14 h-14 rounded-full bg-secondary-fixed text-on-secondary-fixed hover:bg-secondary-fixed-dim transition-colors flex-shrink-0" data-action="guide" title="소리 안내 듣기 / 끄기" type="button"><span class="material-symbols-outlined text-2xl">volume_up</span></button><a class="flex items-center justify-center w-12 h-12 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors flex-shrink-0" data-path="teacher-settings" href="teacher.html" title="선생님 설정"><span class="material-symbols-outlined text-2xl">settings</span></a><img alt="봄이" class="w-8 h-8 rounded-full object-cover" data-original-src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKlCtdRXFVV6CEDJTGH2KJwqYNgw-UGr6fry-wc_wDQGRDe4fXB-nK1--CoHR1Sy5DaLVgX5M20TaR9u-56gffYGarcmViIslm351M7RhQZllteDNpgatVoEDufCHRJ1l-30f2vwtnSxdkE8xDpQaQEtt4ei2wcnfdfQnyx1LYjGKg-UkBBL5xk5Mow0yL0rwZbnZzE-AdRCDyCB7X46o5cuTVZie5QP1z7IxW" src="assets/p2-0.png"/></div></div></header><main class="w-full bg-surface min-h-[calc(100vh-6rem)] pt-2"><div class="flex flex-col w-full">
+<div class="w-full max-w-7xl mx-auto px-margin-mobile md:px-gutter py-1">
+<!-- Top Sensory Header & Audio Scaffolding -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md bg-surface-container-low rounded-lg shadow-sm relative overflow-hidden p-space-sm">
+<div class="relative z-10 flex flex-col gap-space-xs max-w-2xl">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">device_thermostat</span>
+</span>
+<span class="font-label-sm text-label-sm text-primary tracking-wide">3단계 감정 온도 측정</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">
+          지금 내 마음은 얼마나 뜨거울까요?
+        </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+          내 마음의 온도를 재어보아요. 천천히 골라도 괜찮아요.
+        </p>
+</div>
+<!-- Mascot Audio Bubble -->
+<div class="relative z-10 flex items-center gap-space-sm bg-surface-container-lowest rounded-full p-2 pr-6 shadow-sm">
+<button aria-label="음성 안내 다시 듣기" class="w-14 h-14 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shadow-sm hover:scale-105 active:scale-95 transition-transform flex-shrink-0" id="ttsButton" type="button">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">volume_up</span>
+</button>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-primary">마음 지킴이 고양이</span>
+<span class="font-body-md text-body-md text-on-surface">"지금 내 마음이 얼마나 큰지 꾹 눌러보세요!"</span>
+</div>
+</div>
+<!-- Subtle background ambient wave -->
+<div class="absolute -right-12 -bottom-12 w-64 h-64 bg-primary-fixed/30 rounded-full blur-3xl pointer-events-none"></div>
+</div>
+<!-- Main Workspace: Vertical Sensory Thermometer + 3-Stage Emotion Cards -->
+<div class="grid grid-cols-1 lg:grid-cols-12 items-center mt-space-xs gap-space-sm">
+<!-- Left Column: Friendly Picture-Book Thermometer Visual (4 Cols) -->
+<div class="lg:col-span-4 flex flex-col items-center justify-center bg-surface-container rounded-xl shadow-sm relative p-space-sm">
+<div class="w-full flex items-center justify-between mb-space-sm px-2">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary">insights</span>
+            마음 게이지
+          </span>
+<span class="font-label-md text-label-md text-primary bg-surface-container-lowest px-3 py-1 rounded-full" id="levelLabel">
+            1단계 : 편안해요
+          </span>
+</div>
+<!-- Vertical Thermometer Graphic -->
+<div class="relative w-36 bg-surface-container-lowest rounded-full p-3 shadow-inner flex flex-col items-center justify-end h-[340px]">
+<!-- Glass Reflection accent -->
+<div class="absolute top-8 left-6 w-3 h-48 bg-surface/80 rounded-full blur-[1px] pointer-events-none z-20"></div>
+<!-- Measurement Ticks -->
+<div class="absolute inset-y-12 right-4 flex flex-col justify-between py-6 text-outline pointer-events-none select-none font-label-sm text-label-sm z-10">
+<span class="flex items-center gap-1">― <strong class="text-error font-headline-md">3</strong></span>
+<span class="flex items-center gap-1">― <strong class="text-tertiary font-headline-md">2</strong></span>
+<span class="flex items-center gap-1">― <strong class="text-primary font-headline-md">1</strong></span>
+</div>
+<!-- Rising Liquid Tube -->
+<div class="w-16 bg-surface-container-high rounded-full overflow-hidden relative flex flex-col justify-end p-1 h-48">
+<div class="w-full rounded-full transition-all duration-700 ease-out flex items-start justify-center pt-2 relative shadow-md" id="thermoLiquid" style="height: 33%; background-color: #4eba87;">
+<!-- Smiling Face in thermometer fluid top -->
+<span class="material-symbols-outlined text-on-primary text-2xl transition-transform animate-bounce" id="liquidIcon">
+                sentiment_very_satisfied
+              </span>
+</div>
+</div>
+<!-- Bulb at the bottom -->
+<div class="w-24 h-24 rounded-full flex items-center justify-center mt-[-18px] shadow-md transition-colors duration-500 z-10" id="thermoBulb" style="background-color: #4eba87;">
+<div class="w-16 h-16 rounded-full bg-surface-container-lowest/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-on-primary" style="font-variation-settings: 'FILL' 1;">
+                favorite
+              </span>
+</div>
+</div>
+</div>
+<!-- Companion Cat Helper Badge -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-sm w-full flex items-center gap-space-sm mt-space-xs">
+<img alt="봄이 고양이 그림" class="w-14 h-14 rounded-full object-cover shadow-sm flex-shrink-0" data-alt="Charming pastel storybook illustration of a friendly ginger kitten holding a mint green leaf heart with gentle paws, warm soothing minimalist children book art style" data-original-src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOyG1WHMe9ogIWo3jpa5zGWZFR72WsM66hOmvJ0woO6b4igRpqhmG3XZRm2MiCWPbNaQTqh887L2FNApN-z654twjBngnubtuqx_Rmq4EcyoxScOKqF_CtxOW6gdOzorXilAlNuOTstejBWY0FErdGp8L5YsqbGZu79YQm1OAk22KHyLsvo58fb0RI7Ckegf29ov8P24wN0DhXzE_yKURcaOACbGalqc7CrzFl" src="assets/p3-1.png"/>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-on-surface truncate">나의 곁에 있는 단짝</span>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-1" id="mascotSubtext">마음이 잔잔해서 참 좋아요.</p>
+</div>
+</div>
+</div>
+<!-- Right Column: 3 Sensory Stage Large Cards (8 Cols) -->
+<div class="lg:col-span-8 flex flex-col gap-space-xs">
+<!-- STAGE 1: GREEN (Selected by default) -->
+<button aria-label="1단계: 괜찮아요, 조금 잔잔해요" class="w-full text-left bg-primary-fixed/20 hover:bg-primary-fixed/30 active:scale-[0.99] transition-all duration-300 rounded-lg flex items-center justify-between gap-space-md shadow-md focus:outline-none ring-4 ring-primary p-space-sm" id="cardStage1" onclick="selectStage(1)" type="button">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-24 h-24 md:w-28 md:h-28 rounded-2xl bg-surface-container-lowest p-2 shadow-sm flex items-center justify-center flex-shrink-0">
+<img alt="봄이 고양이 그림" class="w-full h-full object-cover rounded-xl" data-alt="Soft picture book illustration of a gentle cream-colored cat resting peacefully with sleepy happy eyes, curled up gently with pastel green leaves, gentle children therapeutic art" data-original-src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmC13-S7BFRh5Gac4ranzV0yB_wy99c9Z29HmVXxc3wKbNSpQ8rBwuSJdeKe-Ev-aAYdSpafcaTf_0uG4zJ_tW5IoruHXA1_cLMVIR9VTfOmh76W-JENsk4HllmrQ-mBupRczkidxR2Yry7fyJrFDUflFIJH4ntur2mByFc1727p8E1tOmJNGFpTIfb8XvxppCGgOT77L8rYZHeZryKGzjWwhuLnkPaf5IA3-T" src="assets/p3-2.png"/>
+</div>
+<div class="flex flex-col gap-1 min-w-0">
+<div class="flex items-center gap-2">
+<span class="px-3 py-0.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm">1단계 • 초록 마음</span>
+<span class="font-body-md text-body-md text-primary font-bold">강도 1/3</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">
+                괜찮아요 / 조금 잔잔해요
+              </h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                마음이 평온하고 숨을 천천히 쉴 수 있는 기분이에요.
+              </p>
+</div>
+</div>
+<div class="w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-3xl font-bold" id="check1">check</span>
+</div>
+</button>
+<!-- STAGE 2: AMBER / YELLOW -->
+<button aria-label="2단계: 조금 화나요, 조금 불편해요" class="w-full text-left bg-surface-container hover:bg-surface-container-high active:scale-[0.99] transition-all duration-300 rounded-lg flex items-center justify-between gap-space-md shadow-sm focus:outline-none p-space-sm" id="cardStage2" onclick="selectStage(2)" type="button">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-24 h-24 md:w-28 md:h-28 rounded-2xl bg-surface-container-lowest p-2 shadow-sm flex items-center justify-center flex-shrink-0">
+<img alt="봄이 고양이 그림" class="w-full h-full object-cover rounded-xl" data-alt="Charming children book pastel drawing of a ginger cat with slightly furrowed cute eyebrows, clenching soft paws, looking a bit unsettled yet calm, gentle amber and cream tones" data-original-src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIZlEVmBSsr-bJbwS507fqw1sofgjMPTL7G69oEMSIdf7x4SL7SDcoQNETfLC7TJQxebNA-26qDVwrkZ2VmyO4LtFlu_oO13oNdLieskzrfQ6TNAUm7JtMdP_ZEdG684lrM1qG9QevhHLnkWpU3eEiDTp5uF3kGuu24P10dg_tWSrLF4FxGeOSqVrU7K4Ywv5KnXow_LUPVfbxjGj7DJAjFkZ0dvRkhkBGk7GU" src="assets/p3-3.png"/>
+</div>
+<div class="flex flex-col gap-1 min-w-0">
+<div class="flex items-center gap-2">
+<span class="px-3 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">2단계 • 노란 마음</span>
+<span class="font-body-md text-body-md text-on-surface-variant">강도 2/3</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">
+                조금 화나요 / 조금 불편해요
+              </h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                가슴이 조금 두근거리거나 생각대로 되지 않아 답답해요.
+              </p>
+</div>
+</div>
+<div class="w-14 h-14 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-3xl font-bold opacity-0" id="check2">check</span>
+</div>
+</button>
+<!-- STAGE 3: RED / CORAL (Immediate High-Arousal Triggers) -->
+<button aria-label="3단계: 많이 화나요, 폭발할 것 같아요" class="w-full text-left bg-surface-container hover:bg-error-container/30 active:scale-[0.99] transition-all duration-300 rounded-lg flex items-center justify-between gap-space-md shadow-sm focus:outline-none p-space-sm" id="cardStage3" onclick="selectStage(3)" type="button">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-24 h-24 md:w-28 md:h-28 rounded-2xl bg-surface-container-lowest p-2 shadow-sm flex items-center justify-center flex-shrink-0">
+<img alt="봄이 고양이 그림" class="w-full h-full object-cover rounded-xl" data-alt="Soothing pastel drawing of a chubby cat with warm flushed rosy cheeks and tiny steam puffs from ears, visibly overwhelmed needing a pause, gentle storybook art, non-threatening safe expression" data-original-src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHIHt1zl6TAtbvrFH2s12o1G0mzG7BreLKc2S4jWtOqjQKhAdByOPSLiXxm2FfdgcGqkLd0Jj6omlwY38snC7D_8JR6XT_N69F2jXD7U_W8H5NKw7L2FgewDRPOUn49owYmGvtooIoOVV95_jAUqzINst-v8GWB3vElziGKVpiOE7i6Rgq1cIv3xi8-SHlkmk0-_aec1ypxMY3XKBtpz0sH24FSKCT2njItPvl" src="assets/p3-4.png"/>
+</div>
+<div class="flex flex-col gap-1 min-w-0">
+<div class="flex items-center gap-2">
+<span class="px-3 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm">3단계 • 빨간 마음</span>
+<span class="font-body-md text-body-md text-error font-bold">강도 3/3</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">
+                많이 화나요 / 폭발할 것 같아요!
+              </h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                몸에 힘이 꽉 들어가고 눈물이 나거나 소리를 지르고 싶어요.
+              </p>
+</div>
+</div>
+<div class="w-14 h-14 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-3xl font-bold opacity-0" id="check3">check</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Alert / Sensory Calming Banner for Level 3 (Hidden by default, slides down) -->
+<div class="hidden mt-space-lg bg-error-container text-on-error-container rounded-xl p-space-lg shadow-md animate-fade-in transition-all" id="emergencyPauseModal">
+<div class="flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-16 h-16 rounded-full bg-on-error flex items-center justify-center text-error flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">front_hand</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-bold">지금 바로 멈추고 쉬어요!</span>
+<p class="font-body-lg text-body-lg text-on-error-container">
+              몸과 마음에 불이 났어요. 아무 말도 안 해도 돼요. 먼저 시원한 숨을 쉬어볼까요?
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm flex-shrink-0 w-full md:w-auto">
+<a class="w-full md:w-auto min-h-[64px] px-space-lg py-space-sm rounded-full bg-error text-on-error font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-md hover:bg-error/90 active:scale-95 transition-transform" href="stop.html">
+<span>지금 바로 1단계 멈추기</span>
+<span class="material-symbols-outlined text-2xl">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Bottom Radical Accessibility Action Bar -->
+<div class="bg-surface-container-low rounded-xl flex flex-col sm:flex-row items-center justify-between gap-space-md shadow-sm mt-space-xs px-space-md py-space-xs">
+<!-- Back button -->
+<a class="min-h-[64px] min-w-[140px] w-full sm:w-auto px-space-lg py-space-sm rounded-full bg-surface-container-highest text-on-surface font-label-md text-label-md flex items-center justify-center gap-2 shadow-sm hover:bg-surface-container active:scale-95 transition-transform" href="emotion.html">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+<span>이전으로</span>
+</a>
+<!-- Center status pill (optional helper message) -->
+<div class="hidden lg:flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-primary text-xl">favorite</span>
+<span>어떤 감정이든 자연스러운 거예요. 차근차근 해보아요.</span>
+</div>
+<!-- Forward / Action Flow -->
+<div class="flex flex-col sm:flex-row items-center gap-space-sm w-full sm:w-auto">
+<button class="min-h-[64px] w-full sm:w-auto px-space-md py-space-sm rounded-full bg-error-container text-on-error-container font-label-md text-label-md flex items-center justify-center gap-2 shadow-sm hover:bg-error-container/80 active:scale-95 transition-all" data-action="help" type="button">
+<span class="material-symbols-outlined text-2xl">support_agent</span>
+<span>선생님 도와주세요</span>
+</button>
+<a class="min-h-[64px] min-w-[220px] w-full sm:w-auto px-space-xl py-space-sm rounded-full bg-primary-container text-on-primary-container font-label-lg text-label-lg flex items-center justify-center gap-3 shadow-md border-b-4 border-primary hover:bg-primary-container/90 active:scale-95 transition-all" href="stop.html" id="nextStepBtn">
+<span>마음 가라앉히러 가기</span>
+<span class="material-symbols-outlined text-3xl font-bold">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<script>
+  let currentStage = 1;
+
+  function selectStage(stage) {
+    currentStage = stage;
+    const thermoLiquid = document.getElementById('thermoLiquid');
+    const thermoBulb = document.getElementById('thermoBulb');
+    const liquidIcon = document.getElementById('liquidIcon');
+    const levelLabel = document.getElementById('levelLabel');
+    const mascotSubtext = document.getElementById('mascotSubtext');
+    const emergencyModal = document.getElementById('emergencyPauseModal');
+    const nextStepBtn = document.getElementById('nextStepBtn');
+
+    // Reset styles on all cards
+    const cards = [
+      document.getElementById('cardStage1'),
+      document.getElementById('cardStage2'),
+      document.getElementById('cardStage3')
+    ];
+    const checks = [
+      document.getElementById('check1'),
+      document.getElementById('check2'),
+      document.getElementById('check3')
+    ];
+
+    cards.forEach((card, idx) => {
+      card.className = "w-full text-left bg-surface-container hover:bg-surface-container-high active:scale-[0.99] transition-all duration-300 rounded-lg p-space-md md:p-space-lg flex items-center justify-between gap-space-md shadow-sm focus:outline-none";
+      checks[idx].classList.add('opacity-0');
+      checks[idx].parentElement.className = "w-14 h-14 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center flex-shrink-0";
+    });
+
+    if (stage === 1) {
+      // Stage 1 - Green
+      thermoLiquid.style.height = "33%";
+      thermoLiquid.style.backgroundColor = "#4eba87";
+      thermoBulb.style.backgroundColor = "#4eba87";
+      liquidIcon.innerText = "sentiment_very_satisfied";
+      levelLabel.innerText = "1단계 : 편안해요";
+      levelLabel.className = "font-label-md text-label-md text-primary bg-surface-container-lowest px-3 py-1 rounded-full";
+      mascotSubtext.innerText = "마음이 잔잔해서 참 좋아요.";
+      emergencyModal.classList.add('hidden');
+      nextStepBtn.classList.remove('bg-error', 'border-error/80', 'text-on-error');
+      nextStepBtn.classList.add('bg-primary-container', 'border-primary', 'text-on-primary-container');
+      nextStepBtn.querySelector('span:first-child').innerText = "마음 가라앉히러 가기";
+
+      cards[0].className = "w-full text-left bg-primary-fixed/20 hover:bg-primary-fixed/30 active:scale-[0.99] transition-all duration-300 rounded-lg p-space-md md:p-space-lg flex items-center justify-between gap-space-md shadow-md focus:outline-none ring-4 ring-primary";
+      checks[0].classList.remove('opacity-0');
+      checks[0].parentElement.className = "w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center flex-shrink-0 shadow-sm";
+    } else if (stage === 2) {
+      // Stage 2 - Amber/Tertiary
+      thermoLiquid.style.height = "66%";
+      thermoLiquid.style.backgroundColor = "#e09f3e";
+      thermoBulb.style.backgroundColor = "#e09f3e";
+      liquidIcon.innerText = "sentiment_neutral";
+      levelLabel.innerText = "2단계 : 조금 불편해요";
+      levelLabel.className = "font-label-md text-label-md text-on-surface bg-surface-container-lowest px-3 py-1 rounded-full";
+      mascotSubtext.innerText = "천천히 숨을 고르고 있어요.";
+      emergencyModal.classList.add('hidden');
+      nextStepBtn.classList.remove('bg-error', 'border-error/80', 'text-on-error');
+      nextStepBtn.classList.add('bg-primary-container', 'border-primary', 'text-on-primary-container');
+      nextStepBtn.querySelector('span:first-child').innerText = "숨쉬기 연습하러 가기";
+
+      cards[1].className = "w-full text-left bg-surface-container-highest hover:bg-surface-container-highest active:scale-[0.99] transition-all duration-300 rounded-lg p-space-md md:p-space-lg flex items-center justify-between gap-space-md shadow-md focus:outline-none ring-4 ring-outline";
+      checks[1].classList.remove('opacity-0');
+      checks[1].parentElement.className = "w-14 h-14 rounded-full bg-outline text-on-primary flex items-center justify-center flex-shrink-0 shadow-sm";
+    } else if (stage === 3) {
+      // Stage 3 - Coral / Red
+      thermoLiquid.style.height = "100%";
+      thermoLiquid.style.backgroundColor = "#ba1a1a";
+      thermoBulb.style.backgroundColor = "#ba1a1a";
+      liquidIcon.innerText = "sentiment_very_dissatisfied";
+      levelLabel.innerText = "3단계 : 많이 뜨거워요!";
+      levelLabel.className = "font-label-md text-label-md text-error bg-error-container px-3 py-1 rounded-full font-bold";
+      mascotSubtext.innerText = "우리 같이 잠깐 멈추어 보아요!";
+      emergencyModal.classList.remove('hidden');
+      emergencyModal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      nextStepBtn.classList.remove('bg-primary-container', 'border-primary', 'text-on-primary-container');
+      nextStepBtn.classList.add('bg-error', 'border-error-container', 'text-on-error');
+      nextStepBtn.querySelector('span:first-child').innerText = "🛑 지금 바로 멈추기";
+
+      cards[2].className = "w-full text-left bg-error-container/40 hover:bg-error-container/50 active:scale-[0.99] transition-all duration-300 rounded-lg p-space-md md:p-space-lg flex items-center justify-between gap-space-md shadow-md focus:outline-none ring-4 ring-error";
+      checks[2].classList.remove('opacity-0');
+      checks[2].parentElement.className = "w-14 h-14 rounded-full bg-error text-on-error flex items-center justify-center flex-shrink-0 shadow-sm";
+    }
+  }
+
+  // Audio Playback simulation
+  document.getElementById('ttsButton').addEventListener('click', function() {
+    this.classList.add('scale-110');
+    setTimeout(() => this.classList.remove('scale-110'), 250);
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const text = "지금 내 마음이 얼마나 큰지 골라보세요. 괜찮아요, 조금 잔잔해요. 조금 화나요. 많이 화나요 폭발할 것 같아요.";
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ko-KR';
+      utterance.rate = 0.85;
+      utterance.pitch = 1.1;
+      window.speechSynthesis.speak(utterance);
+    }
+  });
+</script></main><footer class="w-full bg-surface-container-low py-space-xs"><div class="w-full px-gutter flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-2xl">pets</span><span class="font-body-md text-body-md text-on-surface-variant">나의 마음 지킴이 • 따뜻하고 편안한 특수교육 정서 지원</span></div><div class="flex items-center gap-space-md"><span class="font-label-sm text-label-sm text-on-surface-variant">괜찮아요, 천천히 말해도 돼요</span></div></div></footer>
+</body></html>
