@@ -1,0 +1,50 @@
+/* v1.2 — face-first emotion cards. Scoped to the two emotion selection screens. */
+body[data-page="index"] .emotion-card .mg-face,
+body[data-page="emotion"] .emotion-card .mg-face{
+ width:clamp(140px,13vw,178px)!important;height:clamp(140px,13vw,178px)!important;
+ flex:0 0 auto!important;border-radius:20px!important;padding:4px!important;
+ overflow:hidden;position:relative;box-sizing:border-box;
+}
+.mg-face img{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;display:block!important}
+body[data-page="index"] .emotion-card{min-height:172px!important;padding:12px!important;gap:12px!important}
+body[data-page="index"] .emotion-card>.mg-face-row{flex:1;min-width:0;gap:14px!important}
+body[data-page="index"] .emotion-card .font-headline-md{font-size:clamp(23px,2.15vw,31px)!important;line-height:1.25;white-space:normal!important}
+body[data-page="index"] .emotion-card .font-body-md{font-size:clamp(15px,1.35vw,19px)!important;line-height:1.35;white-space:normal!important;overflow:visible!important}
+body[data-page="emotion"] #emotions-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important}
+body[data-page="emotion"] #emotions-grid .emotion-card{
+ box-sizing:border-box;border:3px solid transparent;min-height:184px;padding:12px!important;gap:8px!important;
+ border-radius:20px!important;align-items:stretch;min-width:0;transition:background-color .15s,border-color .15s,box-shadow .15s
+}
+body[data-page="emotion"] .emotion-card>.mg-face-row{width:100%;gap:12px!important;align-items:center!important;min-width:0}
+body[data-page="emotion"] .emotion-card>.mg-face-row>div:last-child{flex:1;min-width:0}
+body[data-page="emotion"] .emotion-card .font-headline-md{font-size:clamp(23px,2.1vw,30px)!important;font-weight:800;line-height:1.25;white-space:normal!important;overflow-wrap:anywhere}
+body[data-page="emotion"] .emotion-card .font-body-md{font-size:clamp(14px,1.25vw,18px)!important;line-height:1.35;white-space:normal!important;overflow:visible!important;text-overflow:clip!important}
+body[data-page="emotion"] .emotion-card .mg-card-caption{margin-top:0!important;min-height:28px}
+body[data-page="emotion"] .emotion-card[aria-checked="true"]{border-color:#006c47!important;background:#e6f5e9!important;box-shadow:0 0 0 2px #006c4733,0 4px 14px #006c471c!important;transform:none!important}
+body[data-page="emotion"] .emotion-card:focus-visible{outline:3px solid #136299!important;outline-offset:2px}
+body[data-page="emotion"] .emotion-card .select-badge{width:36px!important;height:36px!important;top:5px!important;right:5px!important;z-index:3;animation:none!important}
+body[data-page="emotion"] .emotion-card .select-badge .material-symbols-outlined{font-size:23px!important}
+@media(max-width:1050px){
+ body[data-page="emotion"] .emotion-card>.mg-face-row{flex-direction:column!important;align-items:center!important;gap:6px!important;text-align:center}
+ body[data-page="emotion"] .emotion-card>.mg-face-row>div:last-child{width:100%;flex:none!important;text-align:center}
+ body[data-page="emotion"] .emotion-card .mg-face{width:clamp(132px,16vw,165px)!important;height:clamp(132px,16vw,165px)!important}
+ body[data-page="emotion"] .emotion-card .mg-card-caption{display:none!important}
+ body[data-page="emotion"] .emotion-card .font-body-md{font-size:14px!important}
+}
+@media(max-width:760px){
+ body[data-page="emotion"] #emotions-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+ body[data-page="emotion"] .emotion-card .mg-face{width:clamp(112px,34vw,155px)!important;height:clamp(112px,34vw,155px)!important}
+ body[data-page="emotion"] #emotions-grid .emotion-card{min-height:180px;padding:9px!important;gap:5px!important}
+ body[data-page="emotion"] .emotion-card .font-headline-md{font-size:clamp(19px,4.5vw,26px)!important}
+ body[data-page="emotion"] .emotion-card .font-body-md{display:none!important}
+ body[data-page="index"] .emotion-card .mg-face{width:clamp(112px,27vw,150px)!important;height:clamp(112px,27vw,150px)!important}
+ body[data-page="index"] .emotion-card{min-height:148px!important}
+ body[data-page="index"] .emotion-card>.mg-face-row{gap:10px!important}
+ body[data-page="index"] .emotion-card .font-headline-md{font-size:clamp(21px,4.8vw,26px)!important}
+ body[data-page="emotion"] #btn-next-step{height:auto!important;min-height:48px;padding:10px 12px!important;text-align:center}
+}
+@media(max-width:370px){
+ body[data-page="emotion"] .emotion-card .mg-face{width:min(112px,100%)!important;height:112px!important}
+ body[data-page="index"] .emotion-card .mg-face{width:100px!important;height:100px!important}
+}
+@media(prefers-reduced-motion:reduce){.mg-face,.emotion-card,.select-badge{transition:none!important;animation:none!important}}
